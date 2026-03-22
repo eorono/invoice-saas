@@ -4,6 +4,8 @@ const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
 const winston = require('winston');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 const { sequelize } = require('./models');
 const authRoutes = require('./routes/auth');
 const invoiceRoutes = require('./routes/invoice');
@@ -13,14 +15,40 @@ const reportRoutes = require('./routes/report');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Validate required environment variables
+const requiredEnvVars = ['JWT_SECRET', 'DB_USERNAME', 'DB_PASSWORD', 'DB_NAME'];
+const missingVars = requiredEnvVars.filter(var => !process.env[var]);
+if (missingVars.length > 0) {
+  throw new Error(`Missing required environment variables: ${missingVars.join(', ')}`);
+}
+
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: process.env.NODE_ENV === 'production' 
+    ? ['https://yourdomain.com'] // Replace with actual domain in production
+    : 'http://localhost:3000' // Default for development
+}));
 app.use(express.json());
+app.use(helmet());
+app.use(express.urlencoded({ extended: true }));
+
+// Rate limiting for auth endpoints
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // limit each IP to 5 requests per windowMs
+  message: 'Too many attempts from this IP, please try again after 15 minutes',
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+app.use('/api/auth/', authLimiter);
 
 // Winston logger
 const logger = winston.createLogger({
   level: 'info',
-  format: winston.format.json(),
+  format: winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.json()
+  ),
   defaultMeta: { service: 'invoicing-saas-backend' },
   transports: [
     new winston.transports.Console(),

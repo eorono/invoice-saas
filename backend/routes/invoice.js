@@ -1,8 +1,24 @@
 const express = require('express');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
+const winston = require('winston');
 const { Invoice, User, Payment } = require('../models');
 const authenticateToken = require('../middleware/auth');
+
+// Winston logger
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.json()
+  ),
+  defaultMeta: { service: 'invoicing-saas-backend' },
+  transports: [
+    new winston.transports.Console(),
+    new winston.transports.File({ filename: 'error.log', level: 'error' }),
+    new winston.transports.File({ filename: 'combined.log' })
+  ]
+});
 
 // Get all invoices for the authenticated user
 router.get('/', authenticateToken, async (req, res) => {
@@ -13,7 +29,7 @@ router.get('/', authenticateToken, async (req, res) => {
     });
     res.json(invoices);
   } catch (err) {
-    console.error(err.message);
+    logger.error(err.message);
     res.status(500).send('Server error');
   }
 });
@@ -29,7 +45,7 @@ router.get('/:id', authenticateToken, async (req, res) => {
     }
     res.json(invoice);
   } catch (err) {
-    console.error(err.message);
+    logger.error(err.message);
     res.status(500).send('Server error');
   }
 });
@@ -89,7 +105,7 @@ router.post(
 
       res.status(201).json(invoice);
     } catch (err) {
-      console.error(err.message);
+      logger.error(err.message);
       res.status(500).send('Server error');
     }
   }
@@ -136,7 +152,7 @@ router.put(
       await invoice.update(req.body);
       res.json(invoice);
     } catch (err) {
-      console.error(err.message);
+      logger.error(err.message);
       res.status(500).send('Server error');
     }
   }
@@ -155,7 +171,7 @@ router.delete('/:id', authenticateToken, async (req, res) => {
     await invoice.destroy();
     res.json({ msg: 'Invoice deleted' });
   } catch (err) {
-    console.error(err.message);
+    logger.error(err.message);
     res.status(500).send('Server error');
   }
 });
@@ -177,7 +193,7 @@ router.put('/:id/send', authenticateToken, async (req, res) => {
     await invoice.update({ status: 'sent' });
     res.json(invoice);
   } catch (err) {
-    console.error(err.message);
+    logger.error(err.message);
     res.status(500).send('Server error');
   }
 });
@@ -199,7 +215,7 @@ router.put('/:id/pay', authenticateToken, async (req, res) => {
     await invoice.update({ status: 'paid' });
     res.json(invoice);
   } catch (err) {
-    console.error(err.message);
+    logger.error(err.message);
     res.status(500).send('Server error');
   }
 });

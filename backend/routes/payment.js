@@ -17,7 +17,7 @@ router.get('/', authenticateToken, async (req, res) => {
     });
     res.json(payments);
   } catch (err) {
-    console.error(err.message);
+    logger.error(err.message);
     res.status(500).send('Server error');
   }
 });
@@ -37,7 +37,7 @@ router.get('/:id', authenticateToken, async (req, res) => {
     }
     res.json(payment);
   } catch (err) {
-    console.error(err.message);
+    logger.error(err.message);
     res.status(500).send('Server error');
   }
 });
@@ -94,7 +94,7 @@ router.post(
 
       res.status(201).json(payment);
     } catch (err) {
-      console.error(err.message);
+      logger.error(err.message);
       res.status(500).send('Server error');
     }
   }
@@ -170,7 +170,7 @@ router.post(
         });
       }
     } catch (err) {
-      console.error(err.message);
+      logger.error(err.message);
       res.status(500).send('Server error');
     }
   }
@@ -252,7 +252,7 @@ router.post(
         });
       }
     } catch (err) {
-      console.error(err.message);
+      logger.error(err.message);
       res.status(500).send('Server error');
     }
   }
@@ -329,7 +329,7 @@ router.post(
         });
       }
     } catch (err) {
-      console.error(err.message);
+      logger.error(err.message);
       res.status(500).send('Server error');
     }
   }
@@ -407,7 +407,7 @@ router.post(
         });
       }
     } catch (err) {
-      console.error(err.message);
+      logger.error(err.message);
       res.status(500).send('Server error');
     }
   }
@@ -445,7 +445,7 @@ router.get('/stats/summary', authenticateToken, async (req, res) => {
       invoices: invoiceStats
     });
   } catch (err) {
-    console.error(err.message);
+    logger.error(err.message);
     res.status(500).send('Server error');
   }
 });

@@ -3,10 +3,26 @@ const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const winston = require('winston');
 const { User } = require('../models');
 
 // JWT secret
 const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret_change_in_production';
+
+// Winston logger
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.json()
+  ),
+  defaultMeta: { service: 'invoicing-saas-backend' },
+  transports: [
+    new winston.transports.Console(),
+    new winston.transports.File({ filename: 'error.log', level: 'error' }),
+    new winston.transports.File({ filename: 'combined.log' })
+  ]
+});
 
 // Register user
 router.post(
@@ -59,7 +75,7 @@ router.post(
         }
       );
     } catch (err) {
-      console.error(err.message);
+      logger.error(err.message);
       res.status(500).send('Server error');
     }
   }
@@ -110,7 +126,7 @@ router.post(
         }
       );
     } catch (err) {
-      console.error(err.message);
+      logger.error(err.message);
       res.status(500).send('Server error');
     }
   }
@@ -127,7 +143,7 @@ router.get('/me', authenticateToken, async (req, res) => {
     }
     res.json(user);
   } catch (err) {
-    console.error(err.message);
+    logger.error(err.message);
     res.status(500).send('Server error');
   }
 });

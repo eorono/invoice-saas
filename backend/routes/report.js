@@ -105,7 +105,7 @@ router.get('/summary', authenticateToken, async (req, res) => {
       paymentCount: payments.length
     });
   } catch (err) {
-    console.error(err.message);
+    logger.error(err.message);
     res.status(500).send('Server error');
   }
 });
@@ -189,7 +189,7 @@ router.get('/invoices/pdf', authenticateToken, async (req, res) => {
       // File is saved, response already piped
     });
   } catch (err) {
-    console.error(err.message);
+    logger.error(err.message);
     res.status(500).send('Server error');
   }
 });
@@ -279,7 +279,7 @@ router.get('/payments/pdf', authenticateToken, async (req, res) => {
       // File is saved, response already piped
     });
   } catch (err) {
-    console.error(err.message);
+    logger.error(err.message);
     res.status(500).send('Server error');
   }
 });
