@@ -1,192 +1,192 @@
-# Invoicing SaaS for Latin American Freelancers and SMEs
+# SaaS de Facturación para Freelancers y PYMES Latinoamericanas
 
-A full-stack web application for invoicing and payment tracking designed specifically for freelancers and small to medium enterprises in Latin America. Features multi-currency invoicing, payment status tracking, and integration with simulated payment gateways including NOWPayments (crypto), PayPal, SWIFT, and Zinli ACH Xpress.
+Una aplicación web full-stack para facturación y seguimiento de pagos diseñada específicamente para freelancers y pequeñas y medianas empresas en América Latina. Incluye facturación multi-divisa, seguimiento del estado de pagos e integración con pasarelas de pago simuladas como NOWPayments (cripto), PayPal, SWIFT y Zinli ACH Xpress.
 
-## Features
+## Características
 
-- **User Authentication**: Secure JWT-based authentication
-- **Invoice Management**: Full CRUD operations for invoices
-- **Payment Tracking**: Record and track payments with multiple methods
-- **Multi-Currency Support**: Handle invoices and payments in various currencies (USD, EUR, GBP, VES, BRL, MXN, ARS, CLP, PEN, COP)
-- **Payment Gateway Integration**: 
-  - NOWPayments (cryptocurrency)
+- **Autenticación de Usuarios**: Autenticación segura basada en JWT
+- **Gestión de Facturas**: Operaciones CRUD completas para facturas
+- **Seguimiento de Pagos**: Registro y seguimiento de pagos con múltiples métodos
+- **Soporte Multi-Divisa**: Manejo de facturas y pagos en varias monedas (USD, EUR, GBP, VES, BRL, MXN, ARS, CLP, PEN, COP)
+- **Integración con Pasarelas de Pago**: 
+  - NOWPayments (criptomonedas)
   - PayPal
-  - SWIFT bank transfers
-  - Zinli ACH Xpress (specifically for Latin American market)
-- **Reporting**: Generate financial reports and export to PDF
-- **Responsive Design**: Works on desktop and mobile devices
+  - Transferencias bancarias SWIFT
+  - Zinli ACH Xpress (específicamente para el mercado latinoamericano)
+- **Reportes**: Generación de informes financieros y exportación a PDF
+- **Diseño Responsive**: Funciona en dispositivos de escritorio y móviles
 
-## Tech Stack
+## Stack Tecnológico
 
 ### Backend
-- Node.js with Express.js
-- PostgreSQL database with Sequelize ORM
-- JWT for authentication
-- Winston for logging
-- Swagger for API documentation
+- Node.js con Express.js
+- Base de datos PostgreSQL con Sequelize ORM
+- JWT para autenticación
+- Winston para registro de logs
+- Swagger para documentación de API
 
 ### Frontend
 - React.js
-- React Router for navigation
-- Context API for state management
-- Axios for HTTP requests
-- Bootstrap-inspired custom CSS
+- React Router para navegación
+- Context API para gestión de estado
+- Axios para solicitudes HTTP
+- CSS personalizado inspirado en Bootstrap
 
 ### DevOps
-- Docker containers for both frontend and backend
-- Docker-compose for orchestration
-- PostgreSQL database container
+- Contenedores Docker para frontend y backend
+- Docker Compose para orquestación
+- Contenedor de base de datos PostgreSQL
 
-## Project Structure
+## Estructura del Proyecto
 
 ```
 invoicing-saas/
-├── backend/                  # Node.js/Express backend
-│   ├── controllers/          # Request handlers
-│   ├── middleware/           # Custom middleware
-│   ├── models/               # Database models
-│   ├── routes/               # API routes
-│   ├── config/               # Configuration files
-│   ├── .env.example          # Environment variables example
-│   ├── Dockerfile            # Backend Dockerfile
-│   ├── package.json          # Backend dependencies
-│   └── server.js             # Entry point
-├── frontend/                 # React frontend
-│   ├── public/               # Static assets
-│   ├── src/                  # Source code
-│   │   ├── components/       # Reusable components
-│   │   ├── pages/            # Page components
-│   │   ├── contexts/         # React context providers
-│   │   ├── services/         # Service modules
-│   │   ├── utils/            # Utility functions
-│   │   ├── App.js            # Main app component
-│   │   ├── index.js          # Entry point
-│   │   └── index.css         # Global styles
-│   ├── Dockerfile            # Frontend Dockerfile
-│   └── package.json          # Frontend dependencies
-├── docker-compose.yml        # Docker compose configuration
-└── README.md                 # This file
+├── backend/                  # Backend Node.js/Express
+│   ├── controllers/          # Manejadores de solicitudes
+│   ├── middleware/           # Middleware personalizado
+│   ├── models/               # Modelos de base de datos
+│   ├── routes/               # Rutas de API
+│   ├── config/               # Archivos de configuración
+│   ├── .env.example          # Ejemplo de variables de entorno
+│   ├── Dockerfile            # Dockerfile del backend
+│   ├── package.json          # Dependencias del backend
+│   └── server.js             # Punto de entrada
+├── frontend/                 # Frontend React
+│   ├── public/               # Recursos estáticos
+│   ├── src/                  # Código fuente
+│   │   ├── components/       # Componentes reutilizables
+│   │   ├── pages/            # Componentes de página
+│   │   ├── contexts/         # Proveedores de contexto React
+│   │   ├── services/         # Módulos de servicio
+│   │   ├── utils/            # Funciones de utilidad
+│   │   ├── App.js            # Componente principal de la app
+│   │   ├── index.js          # Punto de entrada
+│   │   └── index.css         # Estilos globales
+│   ├── Dockerfile            # Dockerfile del frontend
+│   └── package.json          # Dependencias del frontend
+├── docker-compose.yml        # Configuración de Docker Compose
+└── README.md                 # Este archivo
 ```
 
-## Getting Started
+## Inicio Rápido
 
-### Prerequisites
-- Docker and Docker Compose
-- Node.js (for local development without Docker)
-- PostgreSQL (for local development without Docker)
+### Requisitos Previos
+- Docker y Docker Compose
+- Node.js (para desarrollo local sin Docker)
+- PostgreSQL (para desarrollo local sin Docker)
 
-### Running with Docker (Recommended)
+### Ejecutar con Docker (Recomendado)
 
-1. Clone the repository
-2. Copy the environment example file:
+1. Clonar el repositorio
+2. Copiar el archivo de ejemplo de variables de entorno:
    ```bash
    cp backend/.env.example backend/.env
    ```
-   (Optional: Edit the .env file to customize settings)
+   (Opcional: Editar el archivo .env para personalizar la configuración)
 
-3. Start the application:
+3. Iniciar la aplicación:
    ```bash
    docker-compose up --build
    ```
 
-4. Access the application:
+4. Acceder a la aplicación:
    - Frontend: http://localhost:3000
    - Backend API: http://localhost:5000
-   - API Documentation: http://localhost:5000/api-docs
+   - Documentación de API: http://localhost:5000/api-docs
 
-### Running Locally (Development)
+### Ejecutar Localmente (Desarrollo)
 
 #### Backend
-1. Navigate to backend directory:
+1. Navegar al directorio del backend:
    ```bash
    cd backend
    ```
-2. Install dependencies:
+2. Instalar dependencias:
    ```bash
    npm install
    ```
-3. Set up environment variables:
+3. Configurar variables de entorno:
    ```bash
    cp .env.example .env
    ```
-   (Edit .env as needed)
-4. Start the server:
+   (Editar .env según sea necesario)
+4. Iniciar el servidor:
    ```bash
    npm run dev
    ```
 
 #### Frontend
-1. Navigate to frontend directory:
+1. Navegar al directorio del frontend:
    ```bash
    cd frontend
    ```
-2. Install dependencies:
+2. Instalar dependencias:
    ```bash
    npm install
    ```
-3. Start the development server:
+3. Iniciar el servidor de desarrollo:
    ```bash
    npm start
    ```
 
-## API Endpoints
+## Endpoints de la API
 
-### Authentication
-- `POST /api/auth/register` - Register a new user
-- `POST /api/auth/login` - Login user
-- `GET /api/auth/me` - Get current user info
+### Autenticación
+- `POST /api/auth/register` - Registrar un nuevo usuario
+- `POST /api/auth/login` - Iniciar sesión
+- `GET /api/auth/me` - Obtener información del usuario actual
 
-### Invoices
-- `GET /api/invoices` - Get all invoices for user
-- `GET /api/invoices/:id` - Get invoice by ID
-- `POST /api/invoices` - Create new invoice
-- `PUT /api/invoices/:id` - Update invoice
-- `DELETE /api/invoices/:id` - Delete invoice
-- `PUT /api/invoices/:id/send` - Mark invoice as sent
-- `PUT /api/invoices/:id/pay` - Mark invoice as paid
+### Facturas
+- `GET /api/invoices` - Obtener todas las facturas del usuario
+- `GET /api/invoices/:id` - Obtener factura por ID
+- `POST /api/invoices` - Crear nueva factura
+- `PUT /api/invoices/:id` - Actualizar factura
+- `DELETE /api/invoices/:id` - Eliminar factura
+- `PUT /api/invoices/:id/send` - Marcar factura como enviada
+- `PUT /api/invoices/:id/pay` - Marcar factura como pagada
 
-### Payments
-- `GET /api/payments` - Get all payments for user
-- `GET /api/payments/:id` - Get payment by ID
-- `POST /api/payments` - Record new payment
-- `PUT /api/payments/:id` - Update payment
-- `POST /api/payments/simulate/nowpayments` - Simulate NOWPayments
-- `POST /api/payments/simulate/paypal` - Simulate PayPal
-- `POST /api/payments/simulate/swift` - Simulate SWIFT
-- `POST /api/payments/simulate/zinli-ach` - Simulate Zinli ACH Xpress
-- `GET /api/payments/stats/summary` - Get payment statistics
+### Pagos
+- `GET /api/payments` - Obtener todos los pagos del usuario
+- `GET /api/payments/:id` - Obtener pago por ID
+- `POST /api/payments` - Registrar nuevo pago
+- `PUT /api/payments/:id` - Actualizar pago
+- `POST /api/payments/simulate/nowpayments` - Simular NOWPayments
+- `POST /api/payments/simulate/paypal` - Simular PayPal
+- `POST /api/payments/simulate/swift` - Simular SWIFT
+- `POST /api/payments/simulate/zinli-ach` - Simular Zinli ACH Xpress
+- `GET /api/payments/stats/summary` - Obtener estadísticas de pagos
 
-### Reports
-- `GET /api/reports/summary` - Get financial summary report
-- `GET /api/reports/invoices/pdf` - Export invoices to PDF
-- `GET /api/reports/payments/pdf` - Export payments to PDF
+### Reportes
+- `GET /api/reports/summary` - Obtener informe de resumen financiero
+- `GET /api/reports/invoices/pdf` - Exportar facturas a PDF
+- `GET /api/reports/payments/pdf` - Exportar pagos a PDF
 
-## Currency Support
+## Soporte de Monedas
 
-The application supports the following currencies commonly used in Latin America and internationally:
-- USD (US Dollar)
+La aplicación soporta las siguientes monedas comúnmente usadas en América Latina e internacionalmente:
+- USD (Dólar estadounidense)
 - EUR (Euro)
-- GBP (British Pound)
-- VES (Venezuelan Bolívar)
-- BRL (Brazilian Real)
-- MXN (Mexican Peso)
-- ARS (Argentine Peso)
-- CLP (Chilean Peso)
-- PEN (Peruvian Sol)
-- COP (Colombian Peso)
+- GBP (Libra esterlina)
+- VES (Bolívar venezolano)
+- BRL (Real brasileño)
+- MXN (Peso mexicano)
+- ARS (Peso argentino)
+- CLP (Peso chileno)
+- PEN (Sol peruano)
+- COP (Peso colombiano)
 
-## Payment Methods
+## Métodos de Pago
 
-- Bank Transfer
-- Credit Card
+- Transferencia bancaria
+- Tarjeta de crédito
 - PayPal
-- Cryptocurrency (via NOWPayments simulation)
-- SWIFT Bank Transfer
-- Zinli ACH Xpress (specifically designed for Latin American markets)
+- Criptomonedas (vía simulación NOWPayments)
+- Transferencia bancaria SWIFT
+- Zinli ACH Xpress (diseñado específicamente para mercados latinoamericanos)
 
-## Environment Variables
+## Variables de Entorno
 
-Create a `.env` file in the backend directory based on `.env.example`:
+Crear un archivo `.env` en el directorio del backend basado en `.env.example`:
 
 ```
 NODE_ENV=development
@@ -199,23 +199,23 @@ DB_PORT=5432
 JWT_SECRET=your_jwt_secret_change_in_production
 ```
 
-## Deployment
+## Despliegue
 
-The application is containerized using Docker and can be deployed to any platform that supports Docker containers (AWS ECS, Google Cloud Run, Azure Container Instances, etc.) or to a traditional VPS with Docker installed.
+La aplicación está containerizada usando Docker y puede desplegarse en cualquier plataforma que soporte contenedores Docker (AWS ECS, Google Cloud Run, Azure Container Instances, etc.) o en un VPS tradicional con Docker instalado.
 
-For production, remember to:
-1. Change the JWT_SECRET to a strong, unique value
-2. Use proper PostgreSQL credentials
-3. Configure real payment gateway API keys (not just simulations)
-4. Set NODE_ENV=production
-5. Consider using a reverse proxy (NGINX) for SSL termination
+Para producción, recuerda:
+1. Cambiar el JWT_SECRET por un valor único y seguro
+2. Usar credenciales PostgreSQL adecuadas
+3. Configurar las claves de API reales de las pasarelas de pago (no solo simulaciones)
+4. Establecer NODE_ENV=production
+5. Considerar usar un proxy inverso (NGINX) para terminación SSL
 
-## License
+## Licencia
 
-MIT License - feel free to use this code for your own projects.
+Licencia MIT - eres libre de usar este código para tus propios proyectos.
 
-## Acknowledgments
+## Agradecimientos
 
-- Built for Latin American freelancers and SMEs who need affordable invoicing solutions
-- Special consideration for regions with limited access to traditional banking services
-- Integrates with popular local payment methods like Zinli ACH Xpress
+- Construido para freelancers y PYMES latinoamericanas que necesitan soluciones de facturación accesibles
+- Consideración especial para regiones con acceso limitado a servicios bancarios tradicionales
+- Integración con métodos de pago locales populares como Zinli ACH Xpress
